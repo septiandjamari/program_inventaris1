@@ -131,7 +131,7 @@ class _DaftarBarangKeluarState extends State<DaftarBarangKeluar> {
                                     ),
                                   );
                                 },
-                                style: TextButton.styleFrom(backgroundColor: Colors.blue.shade700, primary: Colors.white),
+                                style: TextButton.styleFrom(foregroundColor: Colors.white, backgroundColor: Colors.blue.shade700),
                                 child: const Text(
                                   "TAMBAH DATA",
                                   style: TextStyle(fontSize: 10),
@@ -405,7 +405,7 @@ class _DaftarBarangKeluarState extends State<DaftarBarangKeluar> {
                             Padding(
                               padding: const EdgeInsets.all(8),
                               child: TextButton.icon(
-                                style: TextButton.styleFrom(backgroundColor: Colors.green.shade700, primary: Colors.white),
+                                style: TextButton.styleFrom(foregroundColor: Colors.white, backgroundColor: Colors.green.shade700),
                                 onPressed: () {
                                   Navigator.push(
                                     context,
@@ -424,7 +424,7 @@ class _DaftarBarangKeluarState extends State<DaftarBarangKeluar> {
                                       Padding(
                                         padding: const EdgeInsets.all(8),
                                         child: TextButton.icon(
-                                          style: TextButton.styleFrom(backgroundColor: Colors.yellow.shade700, primary: Colors.white),
+                                          style: TextButton.styleFrom(foregroundColor: Colors.white, backgroundColor: Colors.yellow.shade700),
                                           onPressed: () {
                                             Navigator.push(
                                               context,

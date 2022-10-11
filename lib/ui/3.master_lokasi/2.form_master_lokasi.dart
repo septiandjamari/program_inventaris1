@@ -145,7 +145,7 @@ class _FormMasterLokasiState extends State<FormMasterLokasi> {
           actions: widget.addViewEdit != "view"
               ? [
                   TextButton(
-                    style: TextButton.styleFrom(primary: widget.addViewEdit == "edit" ? Colors.black : Colors.white),
+                    style: TextButton.styleFrom(foregroundColor: widget.addViewEdit == "edit" ? Colors.black : Colors.white),
                     onPressed: () {
                       saveData();
                     },

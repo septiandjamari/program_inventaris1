@@ -157,7 +157,7 @@ class _HalamanLaporanState extends State<HalamanLaporan> {
                     //   child: const Icon(Icons.search),
                     // ),
                     ElevatedButton(
-                      style: ElevatedButton.styleFrom(primary: Colors.red.shade600),
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.red.shade600),
                       onPressed: formFilterTglAwal.text.isEmpty || formFilterTglAkhir.text.isEmpty
                           ? null
                           : () {

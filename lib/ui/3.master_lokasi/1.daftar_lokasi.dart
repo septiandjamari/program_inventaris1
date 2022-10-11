@@ -123,7 +123,7 @@ class _MasterLokasiState extends State<MasterLokasi> {
                                     ),
                                   );
                                 },
-                                style: TextButton.styleFrom(backgroundColor: Colors.blue.shade700, primary: Colors.white),
+                                style: TextButton.styleFrom(foregroundColor: Colors.white, backgroundColor: Colors.blue.shade700),
                                 child: const Text("TAMBAH DATA"),
                               )
                             : const SizedBox(),
@@ -294,7 +294,7 @@ class _MasterLokasiState extends State<MasterLokasi> {
                             Padding(
                               padding: const EdgeInsets.all(8),
                               child: TextButton.icon(
-                                style: TextButton.styleFrom(backgroundColor: Colors.green.shade700, primary: Colors.white),
+                                style: TextButton.styleFrom(foregroundColor: Colors.white, backgroundColor: Colors.green.shade700),
                                 onPressed: () {
                                   Navigator.push(
                                     context,
@@ -313,7 +313,7 @@ class _MasterLokasiState extends State<MasterLokasi> {
                                       Padding(
                                         padding: const EdgeInsets.all(8),
                                         child: TextButton.icon(
-                                          style: TextButton.styleFrom(backgroundColor: Colors.yellow.shade700, primary: Colors.white),
+                                          style: TextButton.styleFrom(foregroundColor: Colors.white, backgroundColor: Colors.yellow.shade700),
                                           onPressed: () {
                                             Navigator.push(
                                               context,

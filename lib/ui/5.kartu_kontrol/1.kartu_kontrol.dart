@@ -159,7 +159,7 @@ class _KartuKontrolState extends State<KartuKontrol> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       TextButton(
-                        style: TextButton.styleFrom(primary: Colors.black45),
+                        style: TextButton.styleFrom(foregroundColor: Colors.black45),
                         onPressed: () {
                           resetVariableDialogKartuKontrol();
                           Navigator.pop(ctx);
@@ -183,7 +183,7 @@ class _KartuKontrolState extends State<KartuKontrol> {
                           resetVariableDialogKartuKontrol();
                           Navigator.pop(ctx);
                         },
-                        style: ElevatedButton.styleFrom(primary: Colors.green.shade700),
+                        style: ElevatedButton.styleFrom(backgroundColor: Colors.green.shade700),
                         child: const Text(
                           'TAMBAH',
                           style: TextStyle(fontWeight: FontWeight.bold),
@@ -328,7 +328,7 @@ class _KartuKontrolState extends State<KartuKontrol> {
             children: [
               const Text('Detail Barang', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
               TextButton(
-                style: TextButton.styleFrom(primary: Colors.red.shade700),
+                style: TextButton.styleFrom(foregroundColor: Colors.red.shade700),
                 onPressed: () {
                   hapusPencarian();
                 },
@@ -387,7 +387,7 @@ class _KartuKontrolState extends State<KartuKontrol> {
               ),
               const SizedBox(height: 24),
               ElevatedButton(
-                style: ElevatedButton.styleFrom(primary: Colors.green.shade700),
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.green.shade700),
                 onPressed: () {
                   tambahDataKontrol();
                 },

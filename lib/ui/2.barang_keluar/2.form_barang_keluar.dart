@@ -506,7 +506,7 @@ class _FormBarangKeluarState extends State<FormBarangKeluar> {
             actions: widget.addViewEdit != "view" && !listKodeBarang.any((element) => element['kodeBarang'] == indexMapInfoBarang['kodeitem'])
                 ? [
                     TextButton(
-                      style: TextButton.styleFrom(primary: widget.addViewEdit == "edit" ? Colors.black : Colors.white),
+                      style: TextButton.styleFrom(foregroundColor: widget.addViewEdit == "edit" ? Colors.black : Colors.white),
                       onPressed: () {
                         saveData();
                       },

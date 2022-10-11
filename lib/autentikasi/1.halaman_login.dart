@@ -134,7 +134,7 @@ class _HalamanLoginState extends State<HalamanLogin> {
                   FractionallySizedBox(
                     widthFactor: 1,
                     child: TextButton(
-                      style: TextButton.styleFrom(primary: Colors.black, backgroundColor: Colors.red),
+                      style: TextButton.styleFrom(foregroundColor: Colors.black, backgroundColor: Colors.red),
                       onPressed: username.text.isNotEmpty && password.text.isNotEmpty
                           ? () {
                               if (listAkun.firstWhereOrNull((element) => element["username"] == username.text) != null) {
