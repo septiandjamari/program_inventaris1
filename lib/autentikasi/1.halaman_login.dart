@@ -21,6 +21,7 @@ class _HalamanLoginState extends State<HalamanLogin> {
   TextEditingController password = TextEditingController(text: "");
   bool isPasswordVisible = false;
   List<Map<String, dynamic>> listAkun = [];
+  bool isSuperAdminLogiPage = false;
 
   @override
   void initState() {
@@ -63,6 +64,7 @@ class _HalamanLoginState extends State<HalamanLogin> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -95,7 +97,21 @@ class _HalamanLoginState extends State<HalamanLogin> {
               child: Column(
                 children: [
                   const SizedBox(height: 36),
-                  const Text("Silahkan login dengan mengisi form username dan password dibawah ini: "),
+                  Text(isSuperAdminLogiPage == false
+                      ? "Silahkan login dengan mengisi form username dan password dibawah ini: "
+                      : "Silahkan Masukkan username dan password untuk useradmin dibawah ini:\n\nDefault Username = super_admin Password = super_admin"),
+                  isSuperAdminLogiPage == false
+                      ? const SizedBox()
+                      : Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 16.0),
+                          child: Row(
+                            children: const [
+                              Icon(Icons.info_outline_rounded),
+                              SizedBox(width: 8),
+                              Flexible(child: Text("Anda bisa nama username dan password setelah login dipengaturan akun")),
+                            ],
+                          ),
+                        ),
                   const SizedBox(height: 36),
                   TextFormField(
                     controller: username,
@@ -183,6 +199,21 @@ class _HalamanLoginState extends State<HalamanLogin> {
                         "LOGIN",
                         style:
                             TextStyle(fontWeight: FontWeight.bold, color: username.text.isNotEmpty && password.text.isNotEmpty ? Colors.white : Colors.black54),
+                      ),
+                    ),
+                  ),
+                  FractionallySizedBox(
+                    widthFactor: 1,
+                    child: TextButton(
+                      style: TextButton.styleFrom(foregroundColor: Colors.black, backgroundColor: Colors.red),
+                      onPressed: () {
+                        setState(() {
+                          isSuperAdminLogiPage = isSuperAdminLogiPage == false ? true : false;
+                        });
+                      },
+                      child: Text(
+                        isSuperAdminLogiPage == false ? "LOGIN SEBAGAI SUPER ADMIN" : "LOGIN SEBAGAI PENGGUNA BIASA",
+                        style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
                       ),
                     ),
                   ),
