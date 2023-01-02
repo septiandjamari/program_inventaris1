@@ -52,7 +52,7 @@ class _HalamanControllerState extends State<HalamanController> {
         if (kDebugMode) {
           print(userDetail);
         }
-        if (mapUserDetail["privileges"] == "admin") {
+        if (mapUserDetail["privileges"] == "admin" || mapUserDetail["privileges"] == "super_admin") {
           subLoginState = 1;
         } else if (mapUserDetail["privileges"] == "viewer") {
           subLoginState = 2;

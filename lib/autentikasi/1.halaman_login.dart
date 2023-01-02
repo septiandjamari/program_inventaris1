@@ -99,7 +99,7 @@ class _HalamanLoginState extends State<HalamanLogin> {
                   const SizedBox(height: 36),
                   Text(isSuperAdminLogiPage == false
                       ? "Silahkan login dengan mengisi form username dan password dibawah ini: "
-                      : "Silahkan Masukkan username dan password untuk useradmin dibawah ini:\n\nDefault Username = super_admin Password = super_admin"),
+                      : "Silahkan Masukkan username dan password untuk useradmin dibawah ini :\n\nDefault Username = super_admin Password = super_admin"),
                   isSuperAdminLogiPage == false
                       ? const SizedBox()
                       : Padding(
@@ -108,7 +108,7 @@ class _HalamanLoginState extends State<HalamanLogin> {
                             children: const [
                               Icon(Icons.info_outline_rounded),
                               SizedBox(width: 8),
-                              Flexible(child: Text("Anda bisa nama username dan password setelah login dipengaturan akun")),
+                              Flexible(child: Text("Anda bisa nama username dan password setelah login di pengaturan akun")),
                             ],
                           ),
                         ),
@@ -156,7 +156,10 @@ class _HalamanLoginState extends State<HalamanLogin> {
                               if (listAkun.firstWhereOrNull((element) => element["username"] == username.text) != null) {
                                 Map<String, dynamic> item = listAkun.firstWhere((element) => element["username"] == username.text);
                                 int index = listAkun.indexOf(item);
-                                item.addAll({"expire_session": DateTime.now().add(const Duration(days: 1)).millisecondsSinceEpoch});
+                                item.addAll({
+                                  "expire_session": DateTime.now().add(const Duration(days: 1)).millisecondsSinceEpoch,
+                                  "role_level": isSuperAdminLogiPage == true ? "super_admin" : "ordinary_user"
+                                });
                                 if (listAkun[index]["password"] == password.text) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
@@ -168,7 +171,8 @@ class _HalamanLoginState extends State<HalamanLogin> {
                                       ),
                                     ),
                                   );
-                                  AuthController.login(mapUser: jsonEncode(item), userPrivilege: item["privileges"] == "admin" ? 1 : 0);
+                                  AuthController.login(
+                                      mapUser: jsonEncode(item), userPrivilege: item["privileges"] == "admin" || item["privileges"] == "super_admin" ? 1 : 0);
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(

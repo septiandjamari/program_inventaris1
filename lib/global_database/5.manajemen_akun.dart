@@ -71,4 +71,13 @@ List<Map<String, dynamic>> listAkun = [
     "privileges": "viewer",
     "path_photo_profile": "",
   },
+  {
+    "id_user": "ght3DfrIop",
+    "username": "super_admin",
+    "real_name": "Super Admin",
+    "password": "super_admin",
+    "role": "Super Admin",
+    "privileges": "super_admin",
+    "path_photo_profile": "",
+  },
 ];

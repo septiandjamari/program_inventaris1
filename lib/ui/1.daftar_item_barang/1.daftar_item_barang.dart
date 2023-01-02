@@ -116,7 +116,7 @@ class _DaftarItemBarangState extends State<DaftarItemBarang> {
                   ),
                   Row(
                     children: [
-                      userInfo["privileges"] == "admin"
+                      userInfo["privileges"] == "admin" || userInfo["privileges"] == "super_admin"
                           ? Padding(
                               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 2),
                               child: TextButton(
@@ -377,19 +377,19 @@ class _DaftarItemBarangState extends State<DaftarItemBarang> {
                                 width: MediaQuery.of(context).size.width * 0.075,
                               ),
                               Container(
-                            padding: const EdgeInsets.only(right: 10),
+                                padding: const EdgeInsets.only(right: 10),
                                 width: MediaQuery.of(context).size.width * 0.250,
                                 child: Text("${e["tahunPembelian"]}"),
                               ),
                               Container(
-                            padding: const EdgeInsets.only(right: 10),
+                                padding: const EdgeInsets.only(right: 10),
                                 width: MediaQuery.of(context).size.width * 0.275,
                                 child: indexLokasi == -1
                                     ? Text("Lokasi Belum Ditentukan", style: TextStyle(color: Colors.red.shade900))
                                     : Text("${daftarLokasi[indexLokasi]["namaLokasi"]}"),
                               ),
                               Container(
-                            padding: const EdgeInsets.only(right: 10),
+                                padding: const EdgeInsets.only(right: 10),
                                 width: MediaQuery.of(context).size.width * 0.275,
                                 child: Text("${e["kondisi"]}"),
                               ),
@@ -420,7 +420,7 @@ class _DaftarItemBarangState extends State<DaftarItemBarang> {
                                 label: const Text("Lihat Detail"),
                               ),
                             ),
-                            userInfo["privileges"] == "admin"
+                            userInfo["privileges"] == "admin" || userInfo["privileges"] == "super_admin"
                                 ? Row(
                                     children: [
                                       Padding(

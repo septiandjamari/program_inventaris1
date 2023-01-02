@@ -113,7 +113,7 @@ class _MasterLokasiState extends State<MasterLokasi> {
                     ),
                     Row(
                       children: [
-                        userInfo["privileges"] == "admin"
+                        userInfo["privileges"] == "admin" || userInfo["privileges"] == "super_admin"
                             ? TextButton(
                                 onPressed: () {
                                   Navigator.push(
@@ -307,7 +307,7 @@ class _MasterLokasiState extends State<MasterLokasi> {
                                 label: const Text("Lihat Detail"),
                               ),
                             ),
-                            userInfo["privileges"] == "admin"
+                            userInfo["privileges"] == "admin" || userInfo["privileges"] == "super_admin"
                                 ? Row(
                                     children: [
                                       Padding(

@@ -119,7 +119,7 @@ class _DaftarBarangKeluarState extends State<DaftarBarangKeluar> {
                   ),
                   Row(
                     children: [
-                      userInfo["privileges"] == "admin"
+                      userInfo["privileges"] == "admin" || userInfo["privileges"] == "super_admin"
                           ? Padding(
                               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 2),
                               child: TextButton(
@@ -418,7 +418,7 @@ class _DaftarBarangKeluarState extends State<DaftarBarangKeluar> {
                                 label: const Text("Lihat Detail"),
                               ),
                             ),
-                            userInfo["privileges"] == "admin" && e['dikembalikan'] == false
+                            (userInfo["privileges"] == "admin" || userInfo["privileges"] == "super_admin") && e['dikembalikan'] == false
                                 ? Row(
                                     children: [
                                       Padding(

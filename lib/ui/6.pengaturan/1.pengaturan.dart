@@ -184,7 +184,7 @@ class _HalamanPengaturanState extends State<HalamanPengaturan> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        userInfo["privileges"] == "admin"
+                        userInfo["privileges"] == "admin" || userInfo["privileges"] == "super_admin"
                             ? const SizedBox()
                             : Row(
                                 children: [
@@ -216,9 +216,11 @@ class _HalamanPengaturanState extends State<HalamanPengaturan> {
                             Padding(
                               padding: const EdgeInsets.all(16),
                               child: ElevatedButton(
-                                  onPressed: userInfo["privileges"] == "admin" ? () {
-                                    ambilGambar(dataToPass: mapSnapshot);
-                                  } : null,
+                                  onPressed: (userInfo["privileges"] == "admin" || userInfo["privileges"] == "super_admin")
+                                      ? () {
+                                          ambilGambar(dataToPass: mapSnapshot);
+                                        }
+                                      : null,
                                   child: const Text("Ubah Gambar Banner")),
                             ),
                           ],
@@ -243,7 +245,7 @@ class _HalamanPengaturanState extends State<HalamanPengaturan> {
                         ),
                         const SizedBox(height: 16),
                         TextFormField(
-                          enabled: userInfo["privileges"] == "admin" ? true : false,
+                          enabled: (userInfo["privileges"] == "admin" || userInfo["privileges"] == "super_admin") ? true : false,
                           controller: headerBaris1,
                           decoration: const InputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -262,7 +264,7 @@ class _HalamanPengaturanState extends State<HalamanPengaturan> {
                         ),
                         const SizedBox(height: 16),
                         TextFormField(
-                          enabled: userInfo["privileges"] == "admin" ? true : false,
+                          enabled: (userInfo["privileges"] == "admin" || userInfo["privileges"] == "super_admin") ? true : false,
                           controller: headerBaris2,
                           decoration: const InputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -281,7 +283,7 @@ class _HalamanPengaturanState extends State<HalamanPengaturan> {
                         ),
                         const SizedBox(height: 16),
                         TextFormField(
-                          enabled: userInfo["privileges"] == "admin" ? true : false,
+                          enabled: (userInfo["privileges"] == "admin" || userInfo["privileges"] == "super_admin") ? true : false,
                           controller: alamat,
                           decoration: const InputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -300,7 +302,7 @@ class _HalamanPengaturanState extends State<HalamanPengaturan> {
                         ),
                         const SizedBox(height: 16),
                         TextFormField(
-                          enabled: userInfo["privileges"] == "admin" ? true : false,
+                          enabled: (userInfo["privileges"] == "admin" || userInfo["privileges"] == "super_admin") ? true : false,
                           controller: noTelepon,
                           decoration: const InputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -319,7 +321,7 @@ class _HalamanPengaturanState extends State<HalamanPengaturan> {
                         ),
                         const SizedBox(height: 16),
                         TextFormField(
-                          enabled: userInfo["privileges"] == "admin" ? true : false,
+                          enabled: (userInfo["privileges"] == "admin" || userInfo["privileges"] == "super_admin") ? true : false,
                           controller: website,
                           decoration: const InputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -338,7 +340,7 @@ class _HalamanPengaturanState extends State<HalamanPengaturan> {
                         ),
                         const SizedBox(height: 16),
                         TextFormField(
-                          enabled: userInfo["privileges"] == "admin" ? true : false,
+                          enabled: (userInfo["privileges"] == "admin" || userInfo["privileges"] == "super_admin") ? true : false,
                           controller: email,
                           decoration: const InputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -357,7 +359,7 @@ class _HalamanPengaturanState extends State<HalamanPengaturan> {
                         ),
                         const SizedBox(height: 16),
                         TextFormField(
-                          enabled: userInfo["privileges"] == "admin" ? true : false,
+                          enabled: (userInfo["privileges"] == "admin" || userInfo["privileges"] == "super_admin") ? true : false,
                           controller: namaKepsek,
                           decoration: const InputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -376,7 +378,7 @@ class _HalamanPengaturanState extends State<HalamanPengaturan> {
                         ),
                         const SizedBox(height: 16),
                         TextFormField(
-                          enabled: userInfo["privileges"] == "admin" ? true : false,
+                          enabled: (userInfo["privileges"] == "admin" || userInfo["privileges"] == "super_admin") ? true : false,
                           controller: nipKepsek,
                           decoration: const InputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
