@@ -135,7 +135,7 @@ List<CardMenuAplikasi> cardMenuAplikasi = [
   ),
   CardMenuAplikasi(
     iconMenu: Icons.settings,
-    namaMenu: "Pengaturan",
+    namaMenu: "Pengaturan Aplikasi",
   ),
   CardMenuAplikasi(
     iconMenu: Icons.manage_accounts,

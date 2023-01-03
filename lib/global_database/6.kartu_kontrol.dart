@@ -81,7 +81,23 @@ List<Map<String, dynamic>> initListKartuKontrol = [
     'status_history': 'regular_checking',
     'kondisi': 'Baik',
     'keterangan': '',
-  }
+  },
+  {
+    'nomer_kontrol': '113390',
+    'tanggal': 1662595200000,
+    'kode_barang': '20220507-2',
+    'status_history': 'item_borrowed',
+    'kondisi': 'Baik',
+    'keterangan': '',
+  },
+  {
+    'nomer_kontrol': '114680',
+    'tanggal': 1662595200000,
+    'kode_barang': '20220507-2',
+    'status_history': 'item_returned',
+    'kondisi': 'Baik',
+    'keterangan': '',
+  },
 ];
 
 var dbKartuKontrol = DBKartuKontrol();

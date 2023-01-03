@@ -32,7 +32,7 @@ class _HalamanUtamaState extends State<HalamanUtama> {
     "Lokasi",
     "Laporan Barang",
     "Kartu Kontrol",
-    "Pengaturan",
+    "Pengaturan Aplikasi",
     "Manajemen Akun",
   ];
 
@@ -370,7 +370,7 @@ List<ListTileMenuAplikasi> listTileMenuAplikasi = [
   ),
   ListTileMenuAplikasi(
     iconMenu: Icons.settings,
-    namaMenu: "Pengaturan",
+    namaMenu: "Pengaturan Aplikasi",
   ),
   ListTileMenuAplikasi(
     iconMenu: Icons.manage_accounts,
