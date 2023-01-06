@@ -108,7 +108,7 @@ class _HalamanLoginState extends State<HalamanLogin> {
                             children: const [
                               Icon(Icons.info_outline_rounded),
                               SizedBox(width: 8),
-                              Flexible(child: Text("Anda bisa nama username dan password setelah login di pengaturan akun")),
+                              Flexible(child: Text("Anda bisa mengubah nama username dan password setelah login di pengaturan akun")),
                             ],
                           ),
                         ),

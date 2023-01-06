@@ -275,7 +275,7 @@ class _KartuKontrolState extends State<KartuKontrol> {
                             const Padding(
                               padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                               child: Text(
-                                'Daftar Kontrol',
+                                'Daftar Kartu Kontrol',
                                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                                 textAlign: TextAlign.center,
                               ),
