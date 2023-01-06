@@ -400,28 +400,38 @@ class _DaftarBarangKeluarState extends State<DaftarBarangKeluar> {
                         const SizedBox(height: 20),
                         const Divider(),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(8),
                               child: TextButton.icon(
-                                style: TextButton.styleFrom(foregroundColor: Colors.white, backgroundColor: Colors.green.shade700),
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => FormBarangKeluar(addViewEdit: "view", idForm: e["id_form"]),
-                                    ),
-                                  );
-                                },
-                                icon: const Icon(Icons.document_scanner),
-                                label: const Text("Lihat Detail"),
+                                style: TextButton.styleFrom(
+                                    foregroundColor: e['dikembalikan'] == false ? Colors.yellow[800] : Colors.green[600], backgroundColor: Colors.grey[100]),
+                                onPressed: () {},
+                                icon: Icon(e['dikembalikan'] == false ? Icons.warning_rounded : Icons.check),
+                                label: Text(e['dikembalikan'] == false ? "Barang Dipinjam" : "Barang Dikembalikan"),
                               ),
                             ),
-                            (userInfo["privileges"] == "admin" || userInfo["privileges"] == "super_admin") && e['dikembalikan'] == false
-                                ? Row(
-                                    children: [
-                                      Padding(
+                            Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: TextButton.icon(
+                                    style: TextButton.styleFrom(foregroundColor: Colors.white, backgroundColor: Colors.green.shade700),
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => FormBarangKeluar(addViewEdit: "view", idForm: e["id_form"]),
+                                        ),
+                                      );
+                                    },
+                                    icon: const Icon(Icons.document_scanner),
+                                    label: const Text("Lihat Detail"),
+                                  ),
+                                ),
+                                (userInfo["privileges"] == "admin" || userInfo["privileges"] == "super_admin") && e['dikembalikan'] == false
+                                    ? Padding(
                                         padding: const EdgeInsets.all(8),
                                         child: TextButton.icon(
                                           style: TextButton.styleFrom(foregroundColor: Colors.white, backgroundColor: Colors.yellow.shade700),
@@ -436,10 +446,10 @@ class _DaftarBarangKeluarState extends State<DaftarBarangKeluar> {
                                           icon: const Icon(Icons.edit),
                                           label: const Text("Edit"),
                                         ),
-                                      ),
-                                    ],
-                                  )
-                                : const SizedBox(),
+                                      )
+                                    : const SizedBox(),
+                              ],
+                            ),
                           ],
                         )
                       ],

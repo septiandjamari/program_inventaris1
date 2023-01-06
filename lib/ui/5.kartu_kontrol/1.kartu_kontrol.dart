@@ -21,6 +21,7 @@ class _KartuKontrolState extends State<KartuKontrol> {
   Map<String, dynamic> mapDetailBarang = {};
   List<Map<String, dynamic>> daftarLokasi = [];
   List<Map<String, dynamic>> listKartuKontrol = [];
+  int setViewSubMenu = 0;
 
   TextEditingController controllerKodeBarang = TextEditingController(text: '');
   TextEditingController keterangan = TextEditingController(text: "");
@@ -272,12 +273,47 @@ class _KartuKontrolState extends State<KartuKontrol> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Padding(
-                              padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-                              child: Text(
-                                'Daftar Kartu Kontrol',
-                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                                textAlign: TextAlign.center,
+                            const SizedBox(height: 8),
+                            SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                children: [
+                                  ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                                      elevation: setViewSubMenu == 0 ? 4 : 0,
+                                      backgroundColor: setViewSubMenu == 0 ? null : Colors.grey[400],
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        setViewSubMenu = 0;
+                                      });
+                                    },
+                                    child: const Text(
+                                      'Daftar Kartu Kontrol',
+                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 8),
+                                  ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                                      elevation: setViewSubMenu == 0 ? 0 : 4,
+                                      backgroundColor: setViewSubMenu == 0 ? Colors.grey[400] : null,
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        setViewSubMenu = 1;
+                                      });
+                                    },
+                                    child: const Text(
+                                      'Riwayat Perpindahan Barang',
+                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                             Padding(
@@ -306,7 +342,7 @@ class _KartuKontrolState extends State<KartuKontrol> {
                           ],
                         ),
                       ),
-                      widgetKartuKontrol(),
+                      setViewSubMenu == 0 ? widgetKartuKontrol() : riwayatPerpindahanBarang(),
                     ],
                   ),
                 ),
@@ -445,4 +481,10 @@ class _KartuKontrolState extends State<KartuKontrol> {
           );
         });
   }
+}
+
+Widget riwayatPerpindahanBarang() {
+  return StreamBuilder<List<Map<String, dynamic>>>(builder: (context, snapshot) {
+    return Column(children: const [Text("Tunggu dulu ya...")]);
+  });
 }
