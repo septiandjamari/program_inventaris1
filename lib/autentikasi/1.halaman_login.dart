@@ -99,7 +99,7 @@ class _HalamanLoginState extends State<HalamanLogin> {
                   const SizedBox(height: 36),
                   Text(isSuperAdminLogiPage == false
                       ? "Silahkan login dengan mengisi form username dan password dibawah ini: "
-                      : "Silahkan Masukkan username dan password untuk useradmin dibawah ini :\n\nDefault Username = super_admin Password = super_admin"),
+                      : "Silahkan Masukkan username dan password untuk super admin dibawah ini :\n\nDefault Username = super_admin Password = super_admin"),
                   isSuperAdminLogiPage == false
                       ? const SizedBox()
                       : Padding(

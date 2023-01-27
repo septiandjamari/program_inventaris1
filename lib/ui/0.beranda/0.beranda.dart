@@ -139,7 +139,7 @@ List<CardMenuAplikasi> cardMenuAplikasi = [
   ),
   CardMenuAplikasi(
     iconMenu: Icons.manage_accounts,
-    namaMenu: "Manajemen Akun",
+    namaMenu: "Pengaturan Profil",
   ),
 ];
 

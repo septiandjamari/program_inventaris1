@@ -33,7 +33,7 @@ class _HalamanUtamaState extends State<HalamanUtama> {
     "Laporan Barang",
     "Kartu Kontrol",
     "Pengaturan Aplikasi",
-    "Manajemen Akun",
+    "Pengaturan Profil",
   ];
 
   Map<String, dynamic> dataPengaturan = {"warnaTemaAplikasi": 0, "namaSekolah": ""};
@@ -374,7 +374,7 @@ List<ListTileMenuAplikasi> listTileMenuAplikasi = [
   ),
   ListTileMenuAplikasi(
     iconMenu: Icons.manage_accounts,
-    namaMenu: "Manajemen Akun",
+    namaMenu: "Pengaturan Profil",
   ),
 ];
 
