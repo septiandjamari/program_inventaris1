@@ -333,7 +333,7 @@ class _DaftarBarangKeluarState extends State<DaftarBarangKeluar> {
                           Container(
                             padding: const EdgeInsets.only(right: 10),
                             width: MediaQuery.of(context).size.width * 0.250,
-                            child: Text("${e["id_form"]}", style: const TextStyle(color: Colors.black)),
+                            child: Text("${e["id_barang"]}", style: const TextStyle(color: Colors.black)),
                           ),
                           Container(
                             padding: const EdgeInsets.only(right: 10),

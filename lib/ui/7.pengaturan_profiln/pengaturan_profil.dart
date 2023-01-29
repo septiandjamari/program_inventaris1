@@ -8,14 +8,14 @@ import 'package:path_provider/path_provider.dart';
 import 'package:program_inventaris/global_database/5.manajemen_akun.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class HalamanManajemenAkun extends StatefulWidget {
-  const HalamanManajemenAkun({Key? key}) : super(key: key);
+class HalamanPengaturanProfil extends StatefulWidget {
+  const HalamanPengaturanProfil({Key? key}) : super(key: key);
 
   @override
-  State<HalamanManajemenAkun> createState() => _HalamanManajemenAkunState();
+  State<HalamanPengaturanProfil> createState() => _HalamanPengaturanProfilState();
 }
 
-class _HalamanManajemenAkunState extends State<HalamanManajemenAkun> {
+class _HalamanPengaturanProfilState extends State<HalamanPengaturanProfil> {
   // String addedProfileImagePath = "";
   // FileInfo? addedProfileImage;
   TextEditingController realName = TextEditingController(text: "");

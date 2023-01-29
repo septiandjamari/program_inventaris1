@@ -141,6 +141,10 @@ List<CardMenuAplikasi> cardMenuAplikasi = [
     iconMenu: Icons.manage_accounts,
     namaMenu: "Pengaturan Profil",
   ),
+  CardMenuAplikasi(
+    iconMenu: Icons.group_add_rounded,
+    namaMenu: "Manajemen Pengguna",
+  ),
 ];
 
 class CardMenuAplikasi {

@@ -14,7 +14,8 @@ import 'package:program_inventaris/ui/4.laporan_inventaris/1.laporan_inventaris_
 import 'package:program_inventaris/ui/5.kartu_kontrol/1.kartu_kontrol.dart';
 
 import 'package:program_inventaris/ui/6.pengaturan/1.pengaturan.dart';
-import 'package:program_inventaris/ui/7.manajemen_akun/1.manajemen_akun.dart';
+import 'package:program_inventaris/ui/7.pengaturan_profiln/pengaturan_profil.dart';
+import 'package:program_inventaris/ui/8.manajemen_pengguna/1.manajemen_pengguna.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HalamanUtama extends StatefulWidget {
@@ -34,6 +35,7 @@ class _HalamanUtamaState extends State<HalamanUtama> {
     "Kartu Kontrol",
     "Pengaturan Aplikasi",
     "Pengaturan Profil",
+    "Manajemen Pengguna"
   ];
 
   Map<String, dynamic> dataPengaturan = {"warnaTemaAplikasi": 0, "namaSekolah": ""};
@@ -141,7 +143,8 @@ class _HalamanUtamaState extends State<HalamanUtama> {
                               HalamanLaporan(colorThemeIndex: colorThemeIndex),
                               const KartuKontrol(),
                               const HalamanPengaturan(),
-                              const HalamanManajemenAkun(),
+                              const HalamanPengaturanProfil(),
+                              const ManajemenPengguna(),
                             ];
                             return halaman[index];
                           }),
@@ -375,6 +378,10 @@ List<ListTileMenuAplikasi> listTileMenuAplikasi = [
   ListTileMenuAplikasi(
     iconMenu: Icons.manage_accounts,
     namaMenu: "Pengaturan Profil",
+  ),
+  ListTileMenuAplikasi(
+    iconMenu: Icons.group_add_rounded,
+    namaMenu: "Manajemen Pengguna",
   ),
 ];
 
