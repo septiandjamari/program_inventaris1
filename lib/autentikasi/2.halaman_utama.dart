@@ -81,6 +81,7 @@ class _HalamanUtamaState extends State<HalamanUtama> {
                   int colorThemeIndex = snapshot0.data!["warnaTemaAplikasi"];
                   return Theme(
                     data: ThemeData(
+                      fontFamily: 'Quicksand',
                       primarySwatch: appThemeColorList[colorThemeIndex],
                       inputDecorationTheme: const InputDecorationTheme(
                         labelStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),

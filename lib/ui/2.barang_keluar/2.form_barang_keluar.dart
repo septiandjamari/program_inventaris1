@@ -472,6 +472,7 @@ class _FormBarangKeluarState extends State<FormBarangKeluar> {
   Widget build(BuildContext context) {
     return Theme(
         data: ThemeData(
+          fontFamily: 'Quicksand',
           primarySwatch: widget.addViewEdit == "add"
               ? Colors.blue
               : widget.addViewEdit == "view"
