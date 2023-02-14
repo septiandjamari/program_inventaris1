@@ -44,9 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
       localizationsDelegates: GlobalMaterialLocalizations.delegates,
       supportedLocales: const [Locale('id')],
       title: 'Aplikasi Inventaris Mobile',
-      theme: ThemeData(
-        fontFamily: 'Quicksand'
-      ),
+      theme: ThemeData(),
       home: const HalamanController(),
     );
   }
