@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:program_inventaris/ui/8.manajemen_pengguna/2.dialog_tambah_edit_pengguna.dart';
 
 class ManajemenPengguna extends StatefulWidget {
   const ManajemenPengguna({Key? key}) : super(key: key);
@@ -38,68 +39,13 @@ List<Map<String, dynamic>> listAkun = [
 ];
 
 class _ManajemenPenggunaState extends State<ManajemenPengguna> {
-  var dialogFormKey = GlobalKey<FormState>();
-
-  TextEditingController realNameField = TextEditingController(text: "");
-  TextEditingController usernameField = TextEditingController(text: "");
-  TextEditingController roleField = TextEditingController(text: "");
-  TextEditingController privilegesField = TextEditingController(text: "");
-  TextEditingController passwordField = TextEditingController(text: "");
-
-  void addEditDialog({required String addOrEdit}) {
+  bool hidePasswordVisibility = true;
+  void addEditDialog({required String addOrEdit, Map<String, dynamic>? userData}) {
     showDialog(
+      barrierDismissible: false,
       context: context,
       builder: (BuildContext ctx) {
-        return AlertDialog(
-          title: Text(addOrEdit == "add" ? "Tambah Data Pengguna" : "Edit Data Pengguna"),
-          content: Form(
-            key: dialogFormKey,
-            child: Column(
-              children: [
-                TextFormField(
-                  controller: realNameField,
-                  decoration: const InputDecoration(
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    border: OutlineInputBorder(),
-                    label: Text("Nama Lengkap"),
-                  ),
-                ),
-                TextFormField(
-                  controller: usernameField,
-                  decoration: const InputDecoration(
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    border: OutlineInputBorder(),
-                    label: Text("Username"),
-                  ),
-                ),
-                TextFormField(
-                  controller: roleField,
-                  decoration: const InputDecoration(
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    border: OutlineInputBorder(),
-                    label: Text("Jabatan Pegawai"),
-                  ),
-                ),
-                TextFormField(
-                  controller: privilegesField,
-                  decoration: const InputDecoration(
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    border: OutlineInputBorder(),
-                    label: Text("Hak Istimewa"),
-                  ),
-                ),
-                TextFormField(
-                  controller: passwordField,
-                  decoration: const InputDecoration(
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    border: OutlineInputBorder(),
-                    label: Text("Tanggal Input"),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
+        return DialogTambahEditPengguna(addOrEdit: addOrEdit, userData: userData);
       },
     );
   }
@@ -180,7 +126,7 @@ class _ManajemenPenggunaState extends State<ManajemenPengguna> {
                         ElevatedButton.icon(
                           style: ElevatedButton.styleFrom(backgroundColor: Colors.yellow.shade800),
                           onPressed: () {
-                            addEditDialog(addOrEdit: "edit");
+                            addEditDialog(addOrEdit: "edit", userData: e);
                           },
                           icon: const Icon(Icons.edit_rounded),
                           label: const Text("EDIT DATA"),

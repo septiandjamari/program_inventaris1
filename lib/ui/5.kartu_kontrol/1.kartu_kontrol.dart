@@ -274,47 +274,46 @@ class _KartuKontrolState extends State<KartuKontrol> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const SizedBox(height: 8),
-                            SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Row(
-                                children: [
-                                  ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-                                      elevation: setViewSubMenu == 0 ? 4 : 0,
-                                      backgroundColor: setViewSubMenu == 0 ? null : Colors.grey[400],
-                                    ),
-                                    onPressed: () {
-                                      setState(() {
-                                        setViewSubMenu = 0;
-                                      });
-                                    },
-                                    child: const Text(
-                                      'Daftar Kartu Kontrol',
-                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                                      textAlign: TextAlign.center,
-                                    ),
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                                    elevation: setViewSubMenu == 0 ? 4 : 0,
+                                    backgroundColor: setViewSubMenu == 0 ? null : Colors.grey[400],
                                   ),
-                                  const SizedBox(width: 8),
-                                  ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-                                      elevation: setViewSubMenu == 0 ? 0 : 4,
-                                      backgroundColor: setViewSubMenu == 0 ? Colors.grey[400] : null,
-                                    ),
-                                    onPressed: () {
-                                      setState(() {
-                                        setViewSubMenu = 1;
-                                      });
-                                    },
-                                    child: const Text(
-                                      'Riwayat Perpindahan Barang',
-                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                                      textAlign: TextAlign.center,
-                                    ),
+                                  onPressed: () {
+                                    setState(() {
+                                      setViewSubMenu = 0;
+                                    });
+                                  },
+                                  child: const Text(
+                                    'Daftar Kartu Kontrol',
+                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                                    textAlign: TextAlign.center,
                                   ),
-                                ],
-                              ),
+                                ),
+                                const SizedBox(width: 8),
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                                    elevation: setViewSubMenu == 0 ? 0 : 4,
+                                    backgroundColor: setViewSubMenu == 0 ? Colors.grey[400] : null,
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      setViewSubMenu = 1;
+                                    });
+                                  },
+                                  child: const Text(
+                                    'Riwayat Perpindahan Barang',
+                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ],
                             ),
                             Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
