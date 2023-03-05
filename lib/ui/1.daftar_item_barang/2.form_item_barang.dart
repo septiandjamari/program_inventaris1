@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:program_inventaris/global_database/1.daftar_item_barang_provider.dart';
 import 'package:program_inventaris/global_database/3.master_lokasi_provider.dart';
+import 'package:random_string/random_string.dart';
+
+import '../../global_database/6.kartu_kontrol.dart';
 
 class FormItemBarang extends StatefulWidget {
   const FormItemBarang({Key? key, required this.addViewEdit, this.idBarang}) : super(key: key);
@@ -397,7 +400,18 @@ class _FormItemBarangState extends State<FormItemBarang> {
         "sumberDana": sumberDana.text,
         "keterangan": keterangan.text,
       };
+
+      var data = {
+        'nomer_kontrol': randomAlphaNumeric(6),
+        'tanggal': DateTime.now().millisecondsSinceEpoch,
+        'kode_barang': kodeItem.text,
+        'status_history': 'first_time_input',
+        'kondisi': radioKondisiIndex,
+        'keterangan': keterangan.text,
+      };
+
       if (widget.addViewEdit == "add") {
+        dbKartuKontrol.dbKartuKontrol(aksi: 'tambah', data: data, kodeBarang: kodeItem.text);
         streamDaftarItemBarangProvider.addDataBarang(dataBarang: dataBarang);
       } else if (widget.addViewEdit == "edit") {
         streamDaftarItemBarangProvider.editDataBarang(kodeItem: widget.idBarang!, dataBarang: dataBarang);

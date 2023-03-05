@@ -95,7 +95,7 @@ class _DaftarItemBarangState extends State<DaftarItemBarang> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            "$showingItemFrom - ${snapshot.data!.length}",
+                            "$showingItemFrom - ${snapshot.data!.length + 1}",
                             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: Colors.black),
                           ),
                           const Text(

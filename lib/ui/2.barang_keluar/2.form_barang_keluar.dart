@@ -4,6 +4,9 @@ import 'package:intl/intl.dart';
 import 'package:program_inventaris/global_database/1.daftar_item_barang_provider.dart';
 import 'package:program_inventaris/global_database/2.daftar_barang_keluar_provider.dart';
 import 'package:program_inventaris/global_database/3.master_lokasi_provider.dart';
+import 'package:random_string/random_string.dart';
+
+import '../../global_database/6.kartu_kontrol.dart';
 
 class FormBarangKeluar extends StatefulWidget {
   const FormBarangKeluar({Key? key, required this.addViewEdit, this.idForm}) : super(key: key);
@@ -400,12 +403,23 @@ class _FormBarangKeluarState extends State<FormBarangKeluar> {
         "dikembalikan": radioPengembalianIndex == 'Sudah' ? true : false,
         "tanggal_pengembalian": dtTglPengembalian!.millisecondsSinceEpoch,
       };
-      if (kDebugMode) {
-        print(dataBarangKeluar);
-      }
+
+      var data = {
+        'nomer_kontrol': randomAlphaNumeric(6),
+        'tanggal': DateTime.now().millisecondsSinceEpoch,
+        'kode_barang': indexMapInfoBarang["kodeitem"],
+        'status_history': radioPengembalianIndex == 'Sudah' ? 'item_returned' : 'item_borrowed',
+        'kondisi': indexMapInfoBarang["kondisi"],
+        'keterangan': keterangan.text,
+      };
+
       if (widget.addViewEdit == "add") {
+        dbKartuKontrol.dbKartuKontrol(aksi: 'tambah', data: data, kodeBarang: indexMapInfoBarang["kodeitem"]);
         streamDaftarBarangKeluarProvider.addDataBarangKeluar(dataBarang: dataBarangKeluar);
       } else {
+        if (radioPengembalianIndex == 'Sudah') {
+          dbKartuKontrol.dbKartuKontrol(aksi: 'tambah', data: data, kodeBarang: indexMapInfoBarang["kodeitem"]);
+        }
         streamDaftarBarangKeluarProvider.editDataBarangKeluar(dataBarang: dataBarangKeluar, kodeForm: idForm.text);
       }
       dialogSuccess('saveData');
@@ -712,6 +726,7 @@ class _FormBarangKeluarState extends State<FormBarangKeluar> {
                                     ),
                                     const SizedBox(height: 16),
                                     TextFormField(
+                                      enabled: widget.addViewEdit == "add" ? true : false,
                                       readOnly: true,
                                       onTap: widget.addViewEdit == "add"
                                           ? () {
@@ -737,6 +752,7 @@ class _FormBarangKeluarState extends State<FormBarangKeluar> {
                                     ),
                                     const SizedBox(height: 16),
                                     TextFormField(
+                                      enabled: widget.addViewEdit == "add" ? true : false,
                                       readOnly: true,
                                       onTap: widget.addViewEdit == "add"
                                           ? () {

@@ -6,6 +6,8 @@ import 'package:program_inventaris/global_database/3.master_lokasi_provider.dart
 import 'package:program_inventaris/global_database/6.kartu_kontrol.dart';
 import 'package:random_string/random_string.dart';
 
+import '../../global_database/2.daftar_barang_keluar_provider.dart';
+
 class KartuKontrol extends StatefulWidget {
   const KartuKontrol({Key? key}) : super(key: key);
 
@@ -21,6 +23,8 @@ class _KartuKontrolState extends State<KartuKontrol> {
   Map<String, dynamic> mapDetailBarang = {};
   List<Map<String, dynamic>> daftarLokasi = [];
   List<Map<String, dynamic>> listKartuKontrol = [];
+  Map<String, dynamic> selectBarangDikembalikan = {};
+
   int setViewSubMenu = 0;
 
   TextEditingController controllerKodeBarang = TextEditingController(text: '');
@@ -28,6 +32,7 @@ class _KartuKontrolState extends State<KartuKontrol> {
 
   void cariKodeBarang(String kodeBarang) async {
     var detailBarangResult = await streamDaftarItemBarangProvider.selectDataBarang(kodeItem: kodeBarang);
+    var selectBarangDikembalikanResult = await streamDaftarBarangKeluarProvider.selectDataBarangKeluar(idForm: kodeBarang);
     if (kDebugMode) {
       print('detailBarangResult = $detailBarangResult');
     }
@@ -42,6 +47,7 @@ class _KartuKontrolState extends State<KartuKontrol> {
         enableInput = false;
         mapDetailBarang = detailBarangResult;
         listKartuKontrol = dbKartuKontrolResult;
+        selectBarangDikembalikan = selectBarangDikembalikanResult;
       });
     } else {
       if (kDebugMode) {
@@ -177,6 +183,7 @@ class _KartuKontrolState extends State<KartuKontrol> {
                             'nomer_kontrol': randomAlphaNumeric(6),
                             'tanggal': DateTime.now().millisecondsSinceEpoch,
                             'kode_barang': controllerKodeBarang.text,
+                            'status_history': 'regular_checking',
                             'kondisi': radioKondisiIndex,
                             'keterangan': keterangan.text,
                           };
@@ -352,6 +359,7 @@ class _KartuKontrolState extends State<KartuKontrol> {
 
   Widget containerDetailBarang(Map<String, dynamic> data) {
     int indexLokasi = daftarLokasi.indexWhere((e1) => e1["kodeLokasi"].toString() == data["kodeLokasi"].toString());
+    int indexLokasi1 = daftarLokasi.indexWhere((e1) => e1["kodeLokasi"].toString() == selectBarangDikembalikan["id_lokasi_terakhir"].toString());
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
@@ -407,7 +415,7 @@ class _KartuKontrolState extends State<KartuKontrol> {
                     child: TextFormField(
                       enabled: false,
                       initialValue: indexLokasi != -1 ? daftarLokasi[indexLokasi]['namaLokasi'] : '-',
-                      decoration: const InputDecoration(labelText: 'Lokasi'),
+                      decoration: const InputDecoration(labelText: 'Lokasi Awal'),
                     ),
                   ),
                   SizedBox(
@@ -420,12 +428,27 @@ class _KartuKontrolState extends State<KartuKontrol> {
                   ),
                 ],
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    child: TextFormField(
+                      enabled: false,
+                      initialValue: indexLokasi1 != -1 ? daftarLokasi[indexLokasi1]['namaLokasi'] : '-',
+                      decoration: const InputDecoration(labelText: 'Lokasi Awal'),
+                    ),
+                  ),
+                ],
+              ),
               const SizedBox(height: 24),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.green.shade700),
-                onPressed: () {
-                  tambahDataKontrol();
-                },
+                onPressed: selectBarangDikembalikan["dikembalikan"] == true
+                    ? () {
+                        tambahDataKontrol();
+                      }
+                    : null,
                 child: const Text('TAMBAH DATA KONTROL'),
               ),
             ],
