@@ -23,7 +23,7 @@ class _KartuKontrolState extends State<KartuKontrol> {
   Map<String, dynamic> mapDetailBarang = {};
   List<Map<String, dynamic>> daftarLokasi = [];
   List<Map<String, dynamic>> listKartuKontrol = [];
-  Map<String, dynamic> selectBarangDikembalikan = {};
+  List<Map<String, dynamic>> selectBarangDikembalikan = [];
 
   int setViewSubMenu = 0;
 
@@ -32,15 +32,13 @@ class _KartuKontrolState extends State<KartuKontrol> {
 
   void cariKodeBarang(String kodeBarang) async {
     var detailBarangResult = await streamDaftarItemBarangProvider.selectDataBarang(kodeItem: kodeBarang);
-    var selectBarangDikembalikanResult = await streamDaftarBarangKeluarProvider.selectDataBarangKeluar(idForm: kodeBarang);
+    var selectBarangDikembalikanResult =
+        await streamDaftarBarangKeluarProvider.daftarBarangKeluarValue(kodeBarang: kodeBarang, addEditDeleteView: "listBarangKeluarByKodeBarang");
     if (kDebugMode) {
       print('detailBarangResult = $detailBarangResult');
     }
     if (detailBarangResult.isNotEmpty) {
       var dbKartuKontrolResult = await dbKartuKontrol.dbKartuKontrol(aksi: 'list', kodeBarang: kodeBarang);
-      if (kDebugMode) {
-        print('dbKartuKontrolResult $dbKartuKontrolResult');
-      }
       setState(() {
         isBarangDitemukan = true;
         isFormPencarianKosong = false;
@@ -359,7 +357,7 @@ class _KartuKontrolState extends State<KartuKontrol> {
 
   Widget containerDetailBarang(Map<String, dynamic> data) {
     int indexLokasi = daftarLokasi.indexWhere((e1) => e1["kodeLokasi"].toString() == data["kodeLokasi"].toString());
-    int indexLokasi1 = daftarLokasi.indexWhere((e1) => e1["kodeLokasi"].toString() == selectBarangDikembalikan["id_lokasi_terakhir"].toString());
+    int indexLokasi1 = daftarLokasi.indexWhere((e1) => e1["kodeLokasi"].toString() == selectBarangDikembalikan[0]["id_lokasi_terakhir"].toString());
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
@@ -444,7 +442,7 @@ class _KartuKontrolState extends State<KartuKontrol> {
               const SizedBox(height: 24),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.green.shade700),
-                onPressed: selectBarangDikembalikan["dikembalikan"] == true
+                onPressed: selectBarangDikembalikan[0]["dikembalikan"] == true
                     ? () {
                         tambahDataKontrol();
                       }

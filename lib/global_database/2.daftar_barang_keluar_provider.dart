@@ -12,6 +12,7 @@ class StreamDaftarBarangKeluarProvider {
     required String addEditDeleteView,
     Map<String, dynamic>? data,
     String? kodeForm,
+    String? kodeBarang,
   }) async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     String? stringlistBarangKeluar = sp.getString("listBarangKeluar");
@@ -22,6 +23,10 @@ class StreamDaftarBarangKeluarProvider {
       switch (addEditDeleteView) {
         case "select":
           listSelected.add(listBarangKeluar.firstWhere((element) => element["id_form"] == kodeForm));
+          break;
+        case "listBarangKeluarByKodeBarang":
+          listSelected.add(listBarangKeluar.firstWhere((element) => element["id_barang"] == kodeBarang));
+          // listSelected.sort((a, b) => b["dt_barang_keluar_diedit"].compareTo(a["dt_barang_keluar_diedit"]));
           break;
         case "add":
           listBarangKeluar.insert(0, data!);
@@ -41,7 +46,7 @@ class StreamDaftarBarangKeluarProvider {
       }
     });
     await Future.delayed(Duration.zero, () {
-      if (addEditDeleteView != "select") {
+      if (addEditDeleteView != "select" || addEditDeleteView != "listBarangKeluarByKodeBarang") {
         daftarBarangKeluarStream.sink.add(listBarangKeluar);
       } else {
         listBarangKeluar = listSelected;
@@ -90,6 +95,16 @@ List<Map<String, dynamic>> masterlistBarangKeluar = [
     "dt_barang_keluar_diedit": 1662595200000,
     "id_form": "21722938",
     "id_barang": "20220513-1",
+    "id_lokasi_terakhir": "Lokasi-0191",
+    "keterangan": "",
+    "dikembalikan": true,
+    "tanggal_pengembalian": 1662595200000,
+  },
+  {
+    "dt_barang_keluar": 1662508800000,
+    "dt_barang_keluar_diedit": 1662595200000,
+    "id_form": "21722938",
+    "id_barang": "20220705-2",
     "id_lokasi_terakhir": "Lokasi-0191",
     "keterangan": "",
     "dikembalikan": true,

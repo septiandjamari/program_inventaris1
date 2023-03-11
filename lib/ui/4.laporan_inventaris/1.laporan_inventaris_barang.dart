@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:program_inventaris/global_database/1.daftar_item_barang_provider.dart';
@@ -487,8 +488,13 @@ class _HalamanLaporanState extends State<HalamanLaporan> {
                   child: Column(
                     children: listData.map((e) {
                       int indexOf = listData.indexOf(e);
-                      int indexBarang = daftarBarangMasuk.indexWhere((e1) => e1["kodeitem"].toString() == e["id_barang"]);
-                      int indexLokasiAwal = daftarLokasi.indexWhere((e1) => e1["kodeLokasi"].toString() == daftarBarangMasuk[indexBarang]["kodeLokasi"]);
+                      int indexBarang = daftarBarangMasuk.indexWhere((e1) => e1["kodeitem"] == e["id_barang"]);
+                      int indexLokasiAwal =
+                          indexBarang != -1 ? daftarLokasi.indexWhere((e1) => e1["kodeLokasi"] == daftarBarangMasuk[indexBarang]["kodeLokasi"]) : -1;
+                      if (kDebugMode) {
+                        print("listData = $e");
+                        print("daftarBarangMasuk = ${daftarBarangMasuk[0]}");
+                      }
                       int indexLokasiTerakhir = daftarLokasi.indexWhere((e1) => e1["kodeLokasi"].toString() == e["id_lokasi_terakhir"]);
                       return Column(
                         children: [
@@ -515,12 +521,14 @@ class _HalamanLaporanState extends State<HalamanLaporan> {
                                 Container(
                                   padding: const EdgeInsets.only(right: 10),
                                   width: MediaQuery.of(context).size.width * 0.275,
-                                  child: Text("${daftarBarangMasuk[indexBarang]["jenisOrnamaBarang"]}", style: const TextStyle(color: Colors.black)),
+                                  child: Text("${indexBarang != -1 ? daftarBarangMasuk[indexBarang]["jenisOrnamaBarang"] : "Null"}",
+                                      style: const TextStyle(color: Colors.black)),
                                 ),
                                 Container(
                                   padding: const EdgeInsets.only(right: 10),
                                   width: MediaQuery.of(context).size.width * 0.250,
-                                  child: Text("${daftarBarangMasuk[indexBarang]["pabrik"]} - ${daftarBarangMasuk[indexBarang]["merkOrtipe"]}",
+                                  child: Text(
+                                      "${indexBarang != -1 ? daftarBarangMasuk[indexBarang]["pabrik"] : "Null"} - ${indexBarang != -1 ? daftarBarangMasuk[indexBarang]["merkOrtipe"] : "Null"}",
                                       style: const TextStyle(color: Colors.black)),
                                 ),
                               ],
