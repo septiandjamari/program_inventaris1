@@ -98,7 +98,7 @@ class _DaftarBarangKeluarState extends State<DaftarBarangKeluar> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            "$showingItemFrom - ${snapshot.data!.length + 1}",
+                            "$showingItemFrom - ${snapshot.data!.length}",
                             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: Colors.black),
                           ),
                           const Text(
@@ -314,6 +314,9 @@ class _DaftarBarangKeluarState extends State<DaftarBarangKeluar> {
               children: listData.map((e) {
                 int indexOf = listData.indexOf(e);
                 int indexBarang = daftarItemBarang.indexWhere((e1) => e1["kodeitem"].toString() == e["id_barang"]);
+                if (kDebugMode) {
+                  print("indexOf : $indexOf - indexBarang : $indexBarang -> daftarItemBarang[$indexOf] = ${listData[indexOf]["id_barang"]}");
+                }
                 int indexLokasiAwal = daftarLokasi.indexWhere((e1) => e1["kodeLokasi"].toString() == daftarItemBarang[indexBarang]["kodeLokasi"]);
                 int indexLokasiTerakhir = daftarLokasi.indexWhere((e1) => e1["kodeLokasi"].toString() == e["id_lokasi_terakhir"]);
                 return Column(

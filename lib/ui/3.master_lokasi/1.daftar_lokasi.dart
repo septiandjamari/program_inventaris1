@@ -92,7 +92,7 @@ class _MasterLokasiState extends State<MasterLokasi> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              "$showingItemFrom - ${snapshot.data!.length + 1}",
+                              "$showingItemFrom - ${snapshot.data!.length}",
                               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: Colors.black),
                             ),
                             const Text(

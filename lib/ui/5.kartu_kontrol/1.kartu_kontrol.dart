@@ -368,8 +368,8 @@ class _KartuKontrolState extends State<KartuKontrol> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text('Detail Barang', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-              TextButton(
-                style: TextButton.styleFrom(foregroundColor: Colors.red.shade700),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(foregroundColor: Colors.red.shade700, backgroundColor: Colors.grey.shade50),
                 onPressed: () {
                   hapusPencarian();
                 },

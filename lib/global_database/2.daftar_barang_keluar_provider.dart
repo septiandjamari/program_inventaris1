@@ -25,8 +25,12 @@ class StreamDaftarBarangKeluarProvider {
           listSelected.add(listBarangKeluar.firstWhere((element) => element["id_form"] == kodeForm));
           break;
         case "listBarangKeluarByKodeBarang":
-          listSelected.add(listBarangKeluar.firstWhere((element) => element["id_barang"] == kodeBarang));
-          // listSelected.sort((a, b) => b["dt_barang_keluar_diedit"].compareTo(a["dt_barang_keluar_diedit"]));
+          try {
+            listSelected.add(listBarangKeluar.firstWhere((element) => element["id_barang"] == kodeBarang));
+            listSelected.sort((a, b) => b["dt_barang_keluar_diedit"].compareTo(a["dt_barang_keluar_diedit"]));
+          } catch (e) {
+            listSelected = [];
+          }
           break;
         case "add":
           listBarangKeluar.insert(0, data!);
@@ -104,7 +108,7 @@ List<Map<String, dynamic>> masterlistBarangKeluar = [
     "dt_barang_keluar": 1662508800000,
     "dt_barang_keluar_diedit": 1662595200000,
     "id_form": "21722938",
-    "id_barang": "20220705-2",
+    "id_barang": "20220507-2",
     "id_lokasi_terakhir": "Lokasi-0191",
     "keterangan": "",
     "dikembalikan": true,

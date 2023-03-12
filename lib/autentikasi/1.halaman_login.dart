@@ -43,19 +43,15 @@ class _HalamanLoginState extends State<HalamanLogin> {
         listAkun = listAkunResult;
       });
     }
-
     if (sp.getString("listItemBarang") == null) {
       sp.setString("listItemBarang", jsonEncode(masterListItemBarang));
     }
-
     if (sp.getString("listBarangKeluar") == null) {
       sp.setString("listBarangKeluar", jsonEncode(masterlistBarangKeluar));
     }
-
     if (sp.getString("listMasterLokasi") == null) {
       sp.setString("listMasterLokasi", jsonEncode(masterLokasiList));
     }
-
     if (sp.getString("dataPengaturan") == null) {
       sp.setString("dataPengaturan", jsonEncode({}));
     }
