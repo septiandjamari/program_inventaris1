@@ -22,7 +22,6 @@ class DBKartuKontrol {
     await Future.delayed(Duration.zero, () {
       switch (aksi) {
         case 'list':
-          
           break;
         case 'tambah':
           listKartuKontrol.insert(0, data!);

@@ -5,6 +5,7 @@ import 'package:program_inventaris/global_database/1.daftar_item_barang_provider
 import 'package:program_inventaris/global_database/3.master_lokasi_provider.dart';
 import 'package:program_inventaris/global_database/6.kartu_kontrol.dart';
 import 'package:random_string/random_string.dart';
+import 'package:collection/collection.dart';
 
 import '../../global_database/2.daftar_barang_keluar_provider.dart';
 
@@ -501,10 +502,56 @@ class _KartuKontrolState extends State<KartuKontrol> {
           );
         });
   }
-}
 
-Widget riwayatPerpindahanBarang() {
-  return StreamBuilder<List<Map<String, dynamic>>>(builder: (context, snapshot) {
-    return Column(children: const [Text("Tunggu dulu ya...")]);
-  });
+  Widget riwayatPerpindahanBarang() {
+    return StreamBuilder<List<Map<String, dynamic>>>(
+        stream: dbKartuKontrol.getStream,
+        initialData: listKartuKontrol,
+        builder: (context, snapshot) {
+          return Padding(
+            padding: const EdgeInsets.only(top: 16),
+            child: Column(
+              children: snapshot.data!.reversed.mapIndexed(
+                (index, e) {
+                  return e['status_history'] != 'regular_checking'
+                      ? ListTile(
+                          iconColor: e['status_history'] == 'first_time_input'
+                              ? Colors.blue.shade700
+                              : e['status_history'] == 'item_borrowed'
+                                  ? Colors.yellow.shade700
+                                  : Colors.green.shade700,
+                          leading: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('${index + 1}'),
+                            ],
+                          ),
+                          trailing: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(e['status_history'] == 'first_time_input'
+                                  ? Icons.download
+                                  : e['status_history'] == 'item_borrowed'
+                                      ? Icons.north_east
+                                      : Icons.call_received),
+                            ],
+                          ),
+                          title: Text(
+                            e['status_history'] == 'first_time_input'
+                                ? "Barang Diinput Pertama Kali"
+                                : e['status_history'] == 'item_borrowed'
+                                    ? "Barang Dipinjamkan"
+                                    : "Barang Dikembalikan",
+                          ),
+                          subtitle: Text(
+                            DateFormat.yMMMEd("id_ID").add_Hm().format(DateTime.fromMillisecondsSinceEpoch(e["tanggal"])),
+                          ),
+                        )
+                      : const SizedBox();
+                },
+              ).toList(),
+            ),
+          );
+        });
+  }
 }
