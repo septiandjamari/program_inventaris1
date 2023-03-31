@@ -435,7 +435,7 @@ class _KartuKontrolState extends State<KartuKontrol> {
                     child: TextFormField(
                       enabled: false,
                       initialValue: indexLokasi1 != -1 ? daftarLokasi[indexLokasi1]['namaLokasi'] : '-',
-                      decoration: const InputDecoration(labelText: 'Lokasi Awal'),
+                      decoration: const InputDecoration(labelText: 'Lokasi Akhir'),
                     ),
                   ),
                 ],
@@ -513,24 +513,19 @@ class _KartuKontrolState extends State<KartuKontrol> {
             child: Column(
               children: snapshot.data!.reversed.mapIndexed(
                 (index, e) {
+                  int indexLokasi = daftarLokasi.indexWhere((e1) => e1["kodeLokasi"].toString() == e["id_lokasi"].toString());
                   return e['status_history'] != 'regular_checking'
                       ? ListTile(
                           iconColor: e['status_history'] == 'first_time_input'
-                              ? Colors.blue.shade700
+                              ? Colors.green.shade700
                               : e['status_history'] == 'item_borrowed'
-                                  ? Colors.yellow.shade700
-                                  : Colors.green.shade700,
+                                  ? Colors.red.shade600
+                                  : Colors.yellow.shade700,
                           leading: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('${index + 1}'),
-                            ],
-                          ),
-                          trailing: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
                               Icon(e['status_history'] == 'first_time_input'
-                                  ? Icons.download
+                                  ? Icons.south
                                   : e['status_history'] == 'item_borrowed'
                                       ? Icons.north_east
                                       : Icons.call_received),
@@ -543,8 +538,12 @@ class _KartuKontrolState extends State<KartuKontrol> {
                                     ? "Barang Dipinjamkan"
                                     : "Barang Dikembalikan",
                           ),
-                          subtitle: Text(
-                            DateFormat.yMMMEd("id_ID").add_Hm().format(DateTime.fromMillisecondsSinceEpoch(e["tanggal"])),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("Waktu : ${DateFormat.yMMMEd("id_ID").add_Hm().format(DateTime.fromMillisecondsSinceEpoch(e["tanggal"]))}"),
+                              Text('Lokasi : ${indexLokasi != -1 ? daftarLokasi[indexLokasi]["namaLokasi"] : '-'}'),
+                            ],
                           ),
                         )
                       : const SizedBox();

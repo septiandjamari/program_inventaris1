@@ -56,6 +56,7 @@ List<Map<String, dynamic>> initListKartuKontrol = [
     'kode_barang': '20220507-2',
     'kondisi': 'Baik',
     'status_history': 'first_time_input',
+    'id_lokasi': 'Lokasi-42308',
     'keterangan': '',
   },
   {
@@ -64,6 +65,7 @@ List<Map<String, dynamic>> initListKartuKontrol = [
     'kode_barang': '20220507-2',
     'status_history': 'regular_checking',
     'kondisi': 'Baik',
+    'id_lokasi': 'Lokasi-42308',
     'keterangan': '',
   },
   {
@@ -72,6 +74,7 @@ List<Map<String, dynamic>> initListKartuKontrol = [
     'kode_barang': '20220507-2',
     'status_history': 'regular_checking',
     'kondisi': 'Baik',
+    'id_lokasi': 'Lokasi-42308',
     'keterangan': '',
   },
   {
@@ -80,6 +83,7 @@ List<Map<String, dynamic>> initListKartuKontrol = [
     'kode_barang': '20220507-2',
     'status_history': 'regular_checking',
     'kondisi': 'Baik',
+    'id_lokasi': 'Lokasi-42308',
     'keterangan': '',
   },
   {
@@ -88,6 +92,7 @@ List<Map<String, dynamic>> initListKartuKontrol = [
     'kode_barang': '20220507-2',
     'status_history': 'item_borrowed',
     'kondisi': 'Baik',
+    'id_lokasi': 'Lokasi-42308',
     'keterangan': '',
   },
   {
@@ -96,6 +101,7 @@ List<Map<String, dynamic>> initListKartuKontrol = [
     'kode_barang': '20220507-2',
     'status_history': 'item_returned',
     'kondisi': 'Baik',
+    'id_lokasi': 'Lokasi-42308',
     'keterangan': '',
   },
 ];
