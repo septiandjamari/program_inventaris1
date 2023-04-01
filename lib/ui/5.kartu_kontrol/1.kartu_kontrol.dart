@@ -94,7 +94,7 @@ class _KartuKontrolState extends State<KartuKontrol> {
     setState(() {});
   }
 
-  void tambahDataKontrol() {
+  void tambahDataKontrol({required String idLokasi}) {
     showDialog(
         context: context,
         builder: (ctx) {
@@ -184,6 +184,7 @@ class _KartuKontrolState extends State<KartuKontrol> {
                             'kode_barang': controllerKodeBarang.text,
                             'status_history': 'regular_checking',
                             'kondisi': radioKondisiIndex,
+                            'id_lokasi': idLokasi,
                             'keterangan': keterangan.text,
                           };
                           dbKartuKontrol.dbKartuKontrol(aksi: 'tambah', data: data, kodeBarang: controllerKodeBarang.text);
@@ -280,46 +281,50 @@ class _KartuKontrolState extends State<KartuKontrol> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const SizedBox(height: 8),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-                                    elevation: setViewSubMenu == 0 ? 4 : 0,
-                                    backgroundColor: setViewSubMenu == 0 ? null : Colors.grey[400],
-                                  ),
-                                  onPressed: () {
-                                    setState(() {
-                                      setViewSubMenu = 0;
-                                    });
-                                  },
-                                  child: const Text(
-                                    'Daftar Kartu Kontrol',
-                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                                    textAlign: TextAlign.center,
-                                  ),
+                            SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  children: [
+                                    ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                                        elevation: setViewSubMenu == 0 ? 4 : 0,
+                                        backgroundColor: setViewSubMenu == 0 ? null : Colors.grey[400],
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          setViewSubMenu = 0;
+                                        });
+                                      },
+                                      child: const Text(
+                                        'Daftar Kartu Kontrol',
+                                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                                        elevation: setViewSubMenu == 0 ? 0 : 4,
+                                        backgroundColor: setViewSubMenu == 0 ? Colors.grey[400] : null,
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          setViewSubMenu = 1;
+                                        });
+                                      },
+                                      child: const Text(
+                                        'Riwayat Perpindahan Barang',
+                                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                const SizedBox(width: 8),
-                                ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-                                    elevation: setViewSubMenu == 0 ? 0 : 4,
-                                    backgroundColor: setViewSubMenu == 0 ? Colors.grey[400] : null,
-                                  ),
-                                  onPressed: () {
-                                    setState(() {
-                                      setViewSubMenu = 1;
-                                    });
-                                  },
-                                  child: const Text(
-                                    'Riwayat Perpindahan Barang',
-                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
                             Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -441,14 +446,36 @@ class _KartuKontrolState extends State<KartuKontrol> {
                 ],
               ),
               const SizedBox(height: 24),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.green.shade700),
-                onPressed: selectBarangDikembalikan[0]["dikembalikan"] == true
-                    ? () {
-                        tambahDataKontrol();
-                      }
-                    : null,
-                child: const Text('TAMBAH DATA KONTROL'),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(backgroundColor: Colors.green.shade700),
+                    onPressed: selectBarangDikembalikan[0]["dikembalikan"] == true
+                        ? () {
+                            tambahDataKontrol(idLokasi: data[indexLokasi]["kodeLokasi"]);
+                          }
+                        : null,
+                    child: const Text('TAMBAH DATA KONTROL'),
+                  ),
+                  selectBarangDikembalikan[0]["dikembalikan"] == true
+                      ? const SizedBox()
+                      : Padding(
+                          padding: const EdgeInsets.only(top: 12, right: 8),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: const [
+                              Icon(
+                                Icons.info_outline,
+                                color: Colors.black38,
+                                size: 14,
+                              ),
+                              SizedBox(width: 8),
+                              Text('Barang Masih Dipinjam', style: TextStyle(color: Colors.black38, fontSize: 14)),
+                            ],
+                          ),
+                        ),
+                ],
               ),
             ],
           ),

@@ -410,6 +410,7 @@ class _FormBarangKeluarState extends State<FormBarangKeluar> {
         'kode_barang': indexMapInfoBarang["kodeitem"],
         'status_history': radioPengembalianIndex == 'Sudah' ? 'item_returned' : 'item_borrowed',
         'kondisi': indexMapInfoBarang["kondisi"],
+        'id_lokasi': indexMapInfoLokasiAkhir["kodeLokasi"],
         'keterangan': keterangan.text,
       };
 
