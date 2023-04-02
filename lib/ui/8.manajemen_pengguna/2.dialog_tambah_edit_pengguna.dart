@@ -34,76 +34,79 @@ class _DialogTambahEditPenggunaState extends State<DialogTambahEditPengguna> {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(widget.addOrEdit == "add" ? "Tambah Data Pengguna" : "Edit Data Pengguna"),
-      content: SizedBox(
-        width: MediaQuery.of(context).size.width,
-        child: Form(
-          key: dialogFormKey,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(height: 24),
-              TextFormField(
-                controller: realNameField,
-                decoration: const InputDecoration(
-                  floatingLabelBehavior: FloatingLabelBehavior.always,
-                  border: OutlineInputBorder(),
-                  label: Text("Nama Lengkap"),
+      content: SingleChildScrollView(
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          child: Form(
+            key: dialogFormKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 24),
+                TextFormField(
+                  controller: realNameField,
+                  decoration: const InputDecoration(
+                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                    border: OutlineInputBorder(),
+                    label: Text("Nama Lengkap"),
+                  ),
+                  onChanged: ((_) {
+                    setState(() {});
+                  }),
                 ),
-                onChanged: ((_) {
-                  setState(() {});
-                }),
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                controller: usernameField,
-                decoration: const InputDecoration(
-                  floatingLabelBehavior: FloatingLabelBehavior.always,
-                  border: OutlineInputBorder(),
-                  label: Text("Username"),
+                const SizedBox(height: 16),
+                TextFormField(
+                  controller: usernameField,
+                  decoration: const InputDecoration(
+                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                    border: OutlineInputBorder(),
+                    label: Text("Username"),
+                  ),
+                  onChanged: ((_) {
+                    setState(() {});
+                  }),
                 ),
-                onChanged: ((_) {
-                  setState(() {});
-                }),
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                controller: roleField,
-                decoration: const InputDecoration(
-                  floatingLabelBehavior: FloatingLabelBehavior.always,
-                  border: OutlineInputBorder(),
-                  label: Text("Jabatan Pegawai"),
+                const SizedBox(height: 16),
+                TextFormField(
+                  controller: roleField,
+                  decoration: const InputDecoration(
+                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                    border: OutlineInputBorder(),
+                    label: Text("Jabatan Pegawai"),
+                  ),
+                  onChanged: ((_) {
+                    setState(() {});
+                  }),
                 ),
-                onChanged: ((_) {
-                  setState(() {});
-                }),
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                controller: privilegesField,
-                decoration: const InputDecoration(
-                  floatingLabelBehavior: FloatingLabelBehavior.always,
-                  border: OutlineInputBorder(),
-                  label: Text("Hak Istimewa"),
+                const SizedBox(height: 16),
+                TextFormField(
+                  controller: privilegesField,
+                  decoration: const InputDecoration(
+                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                    border: OutlineInputBorder(),
+                    label: Text("Hak Istimewa"),
+                  ),
+                  onChanged: ((_) {
+                    setState(() {});
+                  }),
                 ),
-                onChanged: ((_) {
-                  setState(() {});
-                }),
-              ),
-              const SizedBox(height: 16),
-              widget.addOrEdit == "add"
-                  ? Row(
-                      children: const [
-                        Icon(Icons.info_outline_rounded),
-                        SizedBox(width: 8),
-                        Text("DEFAULT PASSWORD : "),
-                        Text(
-                          "password123",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    )
-                  : const SizedBox(),
-            ],
+                const SizedBox(height: 16),
+                widget.addOrEdit == "add"
+                    ? Wrap(
+                        children: const [
+                          Icon(Icons.info_outline_rounded),
+                          SizedBox(width: 8),
+                          Text("DEFAULT PASSWORD : "),
+                          Text(
+                            "password123",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      )
+                    : const SizedBox(),
+              ],
+            ),
           ),
         ),
       ),

@@ -407,6 +407,7 @@ class _FormItemBarangState extends State<FormItemBarang> {
         'kode_barang': kodeItem.text,
         'status_history': 'first_time_input',
         'kondisi': radioKondisiIndex,
+        'id_lokasi': kodeLokasi,
         'keterangan': keterangan.text,
       };
 
