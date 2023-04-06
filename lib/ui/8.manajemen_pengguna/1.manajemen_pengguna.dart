@@ -56,7 +56,7 @@ class _ManajemenPenggunaState extends State<ManajemenPengguna> {
     );
   }
 
-  void resetPassword({required String namaPengguna}) {
+  void resetPassword({required String namaPengguna, required String idPengguna}) {
     showDialog(
       barrierDismissible: false,
       context: context,
@@ -94,7 +94,7 @@ class _ManajemenPenggunaState extends State<ManajemenPengguna> {
                         barrierDismissible: false,
                         context: context,
                         builder: (BuildContext ctx1) {
-                          return const ConfirmPasswordDialog(reConfirmPassword: false);
+                          return ConfirmPasswordDialog(reConfirmPassword: false, idPengguna: idPengguna,);
                         });
                   },
                   child: const Text("LANJUTKAN", style: TextStyle(color: Colors.black54)),
@@ -204,7 +204,7 @@ class _ManajemenPenggunaState extends State<ManajemenPengguna> {
                                     const SizedBox(width: 16),
                                     ElevatedButton.icon(
                                       onPressed: () {
-                                        resetPassword(namaPengguna: e["real_name"]);
+                                        resetPassword(namaPengguna: e["real_name"], idPengguna: e["id_user"]);
                                       },
                                       icon: const Icon(Icons.restart_alt_rounded),
                                       label: const Text("RESET PASSWORD"),
@@ -226,7 +226,8 @@ class _ManajemenPenggunaState extends State<ManajemenPengguna> {
 
 class ConfirmPasswordDialog extends StatefulWidget {
   final bool reConfirmPassword;
-  const ConfirmPasswordDialog({Key? key, required this.reConfirmPassword}) : super(key: key);
+  final String idPengguna;
+  const ConfirmPasswordDialog({Key? key, required this.reConfirmPassword, required this.idPengguna}) : super(key: key);
 
   @override
   State<ConfirmPasswordDialog> createState() => _ConfirmPasswordDialogState();
@@ -322,7 +323,7 @@ class _ConfirmPasswordDialogState extends State<ConfirmPasswordDialog> {
                               ],
                             ),
                           )
-                        : const ConfirmPasswordDialog(reConfirmPassword: true);
+                        : ConfirmPasswordDialog(reConfirmPassword: true, idPengguna: widget.idPengguna);
                   },
                 );
               },

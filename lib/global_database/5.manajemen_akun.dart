@@ -7,7 +7,8 @@ class StreamListAkunProvider {
   final dataListAkunStream = StreamController<List<Map<String, dynamic>>>.broadcast();
   Stream<List<Map<String, dynamic>>> get getStream => dataListAkunStream.stream;
 
-  Future<List<Map<String, dynamic>>> dataListAkunValue({required String viewOrEditListAkun, Map<String, dynamic>? dataAkun, String? idPengguna}) async {
+  Future<List<Map<String, dynamic>>> dataListAkunValue(
+      {required String viewOrEditListAkun, Map<String, dynamic>? dataAkun, String? idPengguna, String? resetPasswordValue}) async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     String? stringListAkun = sp.getString("dataListAkun");
 
@@ -16,8 +17,31 @@ class StreamListAkunProvider {
       List<Map<String, dynamic>> listSelected = [];
       await Future.delayed(const Duration(milliseconds: 250), () {
         switch (viewOrEditListAkun) {
+          case "add":
+            mapListAkun.insert(0, {
+              "id_user": dataAkun!["id_user"],
+              "username": dataAkun["username"],
+              "real_name": dataAkun["real_name"],
+              "password": dataAkun["password"],
+              "role": dataAkun["role"],
+              "privileges": dataAkun["privileges"],
+              "path_photo_profile": "",
+            });
+            sp.setString("dataListAkun", jsonEncode(mapListAkun));
+            break;
           case "select":
             listSelected.add(mapListAkun.firstWhere((element) => element["id_user"] == idPengguna));
+            break;
+          case "edit_data":
+            int index = mapListAkun.indexWhere((element) => element["id_user"] == idPengguna);
+            mapListAkun[index] = dataAkun!;
+            listSelected.add(dataAkun);
+            sp.setString("dataListAkun", jsonEncode(mapListAkun));
+            break;
+          case "reset_password":
+            int index = mapListAkun.indexWhere((element) => element["id_user"] == idPengguna);
+            mapListAkun[index]["password"] = "password123";
+            sp.setString("dataListAkun", jsonEncode(mapListAkun));
             break;
           case "edit":
             int index = mapListAkun.indexWhere((element) => element["id_user"] == idPengguna);

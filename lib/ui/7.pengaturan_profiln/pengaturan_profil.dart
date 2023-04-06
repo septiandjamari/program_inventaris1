@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:program_inventaris/global_database/5.manajemen_akun.dart';
+import 'package:program_inventaris/no_space_plugin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HalamanPengaturanProfil extends StatefulWidget {
@@ -155,6 +156,9 @@ class _HalamanPengaturanProfilState extends State<HalamanPengaturanProfil> {
                       const SizedBox(height: 24),
                       TextFormField(
                         controller: username,
+                        inputFormatters: [
+                          NoSpaceFormatter(),
+                        ],
                         decoration: const InputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           border: OutlineInputBorder(),
