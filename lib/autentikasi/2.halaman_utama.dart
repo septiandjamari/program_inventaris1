@@ -173,9 +173,10 @@ class InventarisDrawer extends StatefulWidget {
 }
 
 class _InventarisDrawerState extends State<InventarisDrawer> {
-  Map<String, dynamic> userInfo = {};
   Map<String, dynamic> mapPengaturan = {};
   bool showFakeLoading = true;
+  Map<String, dynamic> userInfo = {};
+  
   void loadUserInfo() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     setState(() {
@@ -295,21 +296,25 @@ class _InventarisDrawerState extends State<InventarisDrawer> {
                           Column(
                             children: listTileMenuAplikasi.map((e) {
                               int listTileMenuAplikasiIndex = listTileMenuAplikasi.indexOf(e);
-                              return ListTile(
-                                dense: true,
-                                selected: snapshot.data == listTileMenuAplikasiIndex ? true : false,
-                                selectedColor: fontColor[widget.colorThemeIndex],
-                                selectedTileColor: appThemeColorList[widget.colorThemeIndex],
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                onTap: () {
-                                  halamanUtamaController.changeIndex(index: listTileMenuAplikasiIndex);
-                                  Navigator.of(context).pop();
-                                },
-                                leading: Icon(e.iconMenu),
-                                title: Text(e.namaMenu),
-                              );
+                              return userInfo["role_level"] == "ordinary_user" && e.roleAccess == "ordinary_user" ||
+                                      userInfo["role_level"] == "super_admin" && e.roleAccess == "super_admin" ||
+                                      e.roleAccess == "all"
+                                  ? ListTile(
+                                      dense: true,
+                                      selected: snapshot.data == listTileMenuAplikasiIndex ? true : false,
+                                      selectedColor: fontColor[widget.colorThemeIndex],
+                                      selectedTileColor: appThemeColorList[widget.colorThemeIndex],
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      onTap: () {
+                                        halamanUtamaController.changeIndex(index: listTileMenuAplikasiIndex);
+                                        Navigator.of(context).pop();
+                                      },
+                                      leading: Icon(e.iconMenu),
+                                      title: Text(e.namaMenu),
+                                    )
+                                  : Container();
                             }).toList(),
                           ),
                           const SizedBox(height: 48),
@@ -350,43 +355,53 @@ List<ListTileMenuAplikasi> listTileMenuAplikasi = [
   ListTileMenuAplikasi(
     iconMenu: Icons.home,
     namaMenu: "Beranda",
+    roleAccess: "ordinary_user",
   ),
   ListTileMenuAplikasi(
     iconMenu: Icons.inventory_outlined,
     namaMenu: "Barang Masuk",
+    roleAccess: "ordinary_user",
   ),
   ListTileMenuAplikasi(
     iconMenu: Icons.output_outlined,
     namaMenu: "Barang Keluar",
+    roleAccess: "ordinary_user",
   ),
   ListTileMenuAplikasi(
     iconMenu: Icons.pin_drop,
     namaMenu: "Lokasi",
+    roleAccess: "ordinary_user",
   ),
   ListTileMenuAplikasi(
     iconMenu: Icons.note_alt_outlined,
     namaMenu: "Laporan Barang",
+    roleAccess: "ordinary_user",
   ),
   ListTileMenuAplikasi(
     iconMenu: Icons.assignment,
     namaMenu: "Kartu Kontrol",
+    roleAccess: "ordinary_user",
   ),
   ListTileMenuAplikasi(
     iconMenu: Icons.settings,
     namaMenu: "Pengaturan Aplikasi",
+    roleAccess: "super_admin",
   ),
   ListTileMenuAplikasi(
     iconMenu: Icons.manage_accounts,
     namaMenu: "Pengaturan Profil",
+    roleAccess: "all",
   ),
   ListTileMenuAplikasi(
     iconMenu: Icons.group_add_rounded,
     namaMenu: "Manajemen Pengguna",
+    roleAccess: "super_admin",
   ),
 ];
 
 class ListTileMenuAplikasi {
   IconData iconMenu;
   String namaMenu;
-  ListTileMenuAplikasi({required this.iconMenu, required this.namaMenu});
+  String roleAccess;
+  ListTileMenuAplikasi({required this.iconMenu, required this.namaMenu, required this.roleAccess});
 }

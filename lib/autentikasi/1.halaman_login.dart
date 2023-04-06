@@ -155,27 +155,41 @@ class _HalamanLoginState extends State<HalamanLogin> {
                                   "expire_session": DateTime.now().add(const Duration(days: 1)).millisecondsSinceEpoch,
                                   "role_level": isSuperAdminLogiPage == true ? "super_admin" : "ordinary_user"
                                 });
-                                if (listAkun[index]["password"] == password.text) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      backgroundColor: Colors.green,
-                                      duration: const Duration(seconds: 4),
-                                      content: Text(
-                                        "Selamat Datang!!\nAnda masuk aplikasi sebagai ${listAkun[index]["privileges"]}",
-                                        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                                if (listAkun[index]["privileges"] != "super_admin" && isSuperAdminLogiPage == false ||
+                                    listAkun[index]["privileges"] == "super_admin" && isSuperAdminLogiPage == true) {
+                                  if (listAkun[index]["password"] == password.text) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        backgroundColor: Colors.green,
+                                        duration: const Duration(seconds: 4),
+                                        content: Text(
+                                          "Selamat Datang!!\nAnda masuk aplikasi sebagai ${listAkun[index]["privileges"]}",
+                                          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                  AuthController.login(
-                                      mapUser: jsonEncode(item), userPrivilege: item["privileges"] == "admin" || item["privileges"] == "super_admin" ? 1 : 0);
+                                    );
+                                    AuthController.login(
+                                        mapUser: jsonEncode(item), userPrivilege: item["privileges"] == "admin" || item["privileges"] == "super_admin" ? 1 : 0);
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        backgroundColor: Colors.red,
+                                        duration: Duration(seconds: 4),
+                                        content: Text(
+                                          "Password yang anda masukkan salah. Mohon periksa dan coba lagi",
+                                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    );
+                                  }
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      backgroundColor: Colors.red,
-                                      duration: Duration(seconds: 4),
+                                     SnackBar(
+                                      backgroundColor: Colors.yellow,
+                                      duration: const Duration(seconds: 6),
                                       content: Text(
-                                        "Password yang anda masukkan salah. Mohon periksa dan coba lagi",
-                                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                                        "Anda tidak bisa login, anda tidak memiliki wewenang sebagai ${isSuperAdminLogiPage ? "SUPER ADMIN" :"PENGGUNA BIASA"}",
+                                        style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
                                       ),
                                     ),
                                   );
