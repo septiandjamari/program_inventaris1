@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StreamListAkunProvider {
@@ -33,20 +34,18 @@ class StreamListAkunProvider {
             listSelected.add(mapListAkun.firstWhere((element) => element["id_user"] == idPengguna));
             break;
           case "edit_data":
-            int index = mapListAkun.indexWhere((element) => element["id_user"] == idPengguna);
+            int index = mapListAkun.indexWhere((element) => element["id_user"] == dataAkun!["id_user"]);
             mapListAkun[index] = dataAkun!;
-            listSelected.add(dataAkun);
             sp.setString("dataListAkun", jsonEncode(mapListAkun));
             break;
           case "reset_password":
             int index = mapListAkun.indexWhere((element) => element["id_user"] == idPengguna);
-            mapListAkun[index]["password"] = "password123";
+            mapListAkun[index]["password"] = resetPasswordValue == "super_admin" ? "super_admin" : "password123";
             sp.setString("dataListAkun", jsonEncode(mapListAkun));
             break;
           case "edit":
             int index = mapListAkun.indexWhere((element) => element["id_user"] == idPengguna);
             mapListAkun[index] = dataAkun!;
-            listSelected.add(dataAkun);
             dataAkun.addAll({"expire_session": DateTime.now().add(const Duration(days: 1)).millisecondsSinceEpoch});
             sp.setString("userDetail", jsonEncode(dataAkun));
             sp.setString("dataListAkun", jsonEncode(mapListAkun));
@@ -56,11 +55,17 @@ class StreamListAkunProvider {
         }
       });
       await Future.delayed(Duration.zero, () {
-        if (viewOrEditListAkun != "list") {
+        if (viewOrEditListAkun == "select") {
           dataListAkunStream.sink.add(listSelected);
           mapListAkun = listSelected;
+          if (kDebugMode) {
+            print("ini1 $viewOrEditListAkun => $listSelected");
+          }
         } else {
           dataListAkunStream.sink.add(mapListAkun);
+          if (kDebugMode) {
+            print("ini2 $viewOrEditListAkun => $mapListAkun");
+          }
         }
       });
     } else {

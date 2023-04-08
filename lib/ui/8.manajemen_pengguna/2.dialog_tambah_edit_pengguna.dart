@@ -33,6 +33,36 @@ class _DialogTambahEditPenggunaState extends State<DialogTambahEditPengguna> {
     });
   }
 
+  void dialogSuccess() {
+    FocusScope.of(context).requestFocus(FocusNode());
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext ctx1) {
+        Future.delayed(const Duration(seconds: 2), () {
+          Navigator.pop(ctx1);
+        }).then((value) {
+          Future.delayed(const Duration(milliseconds: 500), () {
+            Navigator.pop(context);
+          });
+        });
+        return AlertDialog(
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.check, color: Colors.green.shade600, size: 160),
+              const SizedBox(height: 16),
+              const Text(
+                "Berhasil Mereset Password...",
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -147,6 +177,7 @@ class _DialogTambahEditPenggunaState extends State<DialogTambahEditPengguna> {
                                 "path_photo_profile": widget.userData!["path_photo_profile"],
                               },
                             );
+                            dialogSuccess();
                           }
                     : realNameField.text == "" || usernameField.text == "" || roleField.text == "" || privilegesField.text == ""
                         ? null
@@ -163,6 +194,7 @@ class _DialogTambahEditPenggunaState extends State<DialogTambahEditPengguna> {
                                 "path_photo_profile": "",
                               },
                             );
+                            dialogSuccess();
                           },
                 child: const Text("SIMPAN"),
               ),

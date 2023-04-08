@@ -56,7 +56,7 @@ class _ManajemenPenggunaState extends State<ManajemenPengguna> {
     );
   }
 
-  void resetPassword({required String namaPengguna, required String idPengguna}) {
+  void resetPassword({required String namaPengguna, required String idPengguna, required String privilegesValue}) {
     showDialog(
       barrierDismissible: false,
       context: context,
@@ -78,7 +78,10 @@ class _ManajemenPenggunaState extends State<ManajemenPengguna> {
               ),
               const SizedBox(height: 24),
               Row(
-                children: const [Text("Password = "), Text("password123", style: TextStyle(fontWeight: FontWeight.bold))],
+                children: [
+                  const Text("Password = "),
+                  Text(privilegesValue == "super_admin" ? "super_amin" : "password123", style: const TextStyle(fontWeight: FontWeight.bold))
+                ],
               )
             ],
           ),
@@ -94,10 +97,14 @@ class _ManajemenPenggunaState extends State<ManajemenPengguna> {
                         barrierDismissible: false,
                         context: context,
                         builder: (BuildContext ctx1) {
-                          return ConfirmPasswordDialog(reConfirmPassword: false, idPengguna: idPengguna,);
+                          return ConfirmPasswordDialog(
+                            reConfirmPassword: false,
+                            idPengguna: idPengguna,
+                            privilegesValue: privilegesValue,
+                          );
                         });
                   },
-                  child: const Text("LANJUTKAN", style: TextStyle(color: Colors.black54)),
+                  child: const Text("LANJUTKAN"),
                 ),
                 const SizedBox(width: 16),
                 ElevatedButton(
@@ -154,9 +161,9 @@ class _ManajemenPenggunaState extends State<ManajemenPengguna> {
             ),
             body: SingleChildScrollView(
               child: Column(
-                children: listAkun.map(
+                children: snapshot.data!.map(
                   (e) {
-                    int index = listAkun.indexOf(e) + 1;
+                    int index = snapshot.data!.indexOf(e) + 1;
                     return e["username"] != userInfo["username"]
                         ? ExpansionTile(
                             leading: Column(
@@ -169,18 +176,14 @@ class _ManajemenPenggunaState extends State<ManajemenPengguna> {
                                 ),
                               ],
                             ),
-                            title: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  "${e["real_name"]} - ",
-                                  style: const TextStyle(color: Colors.black),
-                                ),
-                                Text(
-                                  e["username"],
-                                  style: const TextStyle(color: Colors.black54, fontSize: 14),
-                                ),
-                              ],
+                            title: RichText(
+                              overflow: TextOverflow.visible,
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(text: "${e["real_name"]} - ", style: const TextStyle(color: Colors.black, fontSize: 15)),
+                                  TextSpan(text: e["username"], style: const TextStyle(color: Colors.black54, fontSize: 14)),
+                                ],
+                              ),
                             ),
                             subtitle: Text(
                               "${e["role"]} / ${e["privileges"]}",
@@ -204,7 +207,11 @@ class _ManajemenPenggunaState extends State<ManajemenPengguna> {
                                     const SizedBox(width: 16),
                                     ElevatedButton.icon(
                                       onPressed: () {
-                                        resetPassword(namaPengguna: e["real_name"], idPengguna: e["id_user"]);
+                                        resetPassword(
+                                          namaPengguna: e["real_name"],
+                                          idPengguna: e["id_user"],
+                                          privilegesValue: e["privileges"],
+                                        );
                                       },
                                       icon: const Icon(Icons.restart_alt_rounded),
                                       label: const Text("RESET PASSWORD"),
@@ -227,7 +234,8 @@ class _ManajemenPenggunaState extends State<ManajemenPengguna> {
 class ConfirmPasswordDialog extends StatefulWidget {
   final bool reConfirmPassword;
   final String idPengguna;
-  const ConfirmPasswordDialog({Key? key, required this.reConfirmPassword, required this.idPengguna}) : super(key: key);
+  final String privilegesValue;
+  const ConfirmPasswordDialog({Key? key, required this.reConfirmPassword, required this.idPengguna, required this.privilegesValue}) : super(key: key);
 
   @override
   State<ConfirmPasswordDialog> createState() => _ConfirmPasswordDialogState();
@@ -297,37 +305,45 @@ class _ConfirmPasswordDialogState extends State<ConfirmPasswordDialog> {
           mainAxisSize: MainAxisSize.max,
           children: [
             TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-                showDialog(
-                  barrierDismissible: false,
-                  context: context,
-                  builder: (BuildContext ctx1) {
-                    if (userInfo["password"] == confirmPassword.text) {
-                      Future.delayed(const Duration(seconds: 2), () {
-                        Navigator.pop(ctx1);
-                      });
+              onPressed: confirmPassword.text.length > 4
+                  ? () {
+                      Navigator.pop(context);
+                      if (userInfo["password"] == confirmPassword.text) {
+                        showDialog(
+                          barrierDismissible: false,
+                          context: context,
+                          builder: (BuildContext ctx1) {
+                            Future.delayed(const Duration(seconds: 2), () {
+                              Navigator.pop(ctx1);
+                            });
+                            streamListAkunProvider.dataListAkunValue(
+                                idPengguna: widget.idPengguna, resetPasswordValue: widget.privilegesValue, viewOrEditListAkun: "reset_password");
+                            return AlertDialog(
+                              content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(Icons.check, color: Colors.green.shade600, size: 160),
+                                  const SizedBox(height: 16),
+                                  const Text(
+                                    "Berhasil Mereset Password...",
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      } else {
+                        showDialog(
+                            barrierDismissible: false,
+                            context: context,
+                            builder: (BuildContext ctx1) {
+                              return ConfirmPasswordDialog(reConfirmPassword: true, idPengguna: widget.idPengguna, privilegesValue: widget.privilegesValue);
+                            });
+                      }
                     }
-
-                    return userInfo["password"] == confirmPassword.text
-                        ? AlertDialog(
-                            content: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(Icons.check, color: Colors.green.shade600, size: 160),
-                                const SizedBox(height: 16),
-                                const Text(
-                                  "Berhasil Mereset Password...",
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            ),
-                          )
-                        : ConfirmPasswordDialog(reConfirmPassword: true, idPengguna: widget.idPengguna);
-                  },
-                );
-              },
-              child: const Text("LANJUTKAN", style: TextStyle(color: Colors.black54)),
+                  : null,
+              child: const Text("LANJUTKAN"),
             ),
             const SizedBox(width: 16),
             ElevatedButton(
